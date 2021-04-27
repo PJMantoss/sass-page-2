@@ -1,5 +1,71 @@
 $light : #f4f4f4;
 $font-stack : Arial, Helvetica, sans-serif;
+$primary-color : #0e6cff;
+$secondary-color : #ff8700;
+
+$mobile: 700px;
+
+// Set text color based on background
+@function set-text-color($color){
+    @if(lightness($color) > 70){
+        @return #333;
+    } @else{
+        @return #fff;
+    }
+}
+
+// set background and text color
+@mixin set-background($color){
+    background-color: $color;
+    color: set-text-color($color);
+}
+
+// Media query for mobile responsiveness
+@mixin mobile{
+    @media(max-width: #{$mobile}){
+        @content;
+    }
+}
+
+// margin and padding with loop
+$spaceamounts: (1,2,3,4,5);
+
+@each $space in $spaceamounts {
+    .m-#{$space}{
+        margin: #{$space}rem;
+    }
+    
+    .my-#{$space}{
+        margin: #{$space}rem 0;
+    }
+
+    .p-#{$space}{
+        padding: #{$space}rem;
+    }
+
+    .py-#{$space}{
+        padding: #{$space}rem 0;
+    }
+}
+
+%btn {
+    display: inline-block;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    padding: 8px 20px;
+    margin: 3px;
+
+    &:hover{
+        transform: scale(0.98);
+        -webkit-transform: scale(0.98);
+        -moz-transform: scale(0.98);
+        -ms-transform: scale(0.98);
+        -o-transform: scale(0.98);
+}
+}
 
 * {
     box-sizing: border-box;
@@ -22,7 +88,13 @@ a {
 }
 
 .showcase {
+    @include set-background($primary-color);
+    color: $light;
     height: 600px;
+
+    @include mobile{
+        height: 500px;
+    }
 
     nav{
         display: flex;
@@ -39,7 +111,7 @@ a {
         }
 
         a{
-            color: $primary-color;
+            color: set-text-color($primary-color);
         }
 
         a:hover{
@@ -54,8 +126,16 @@ a {
         justify-content: center;
         margin-top: 30px;
 
+        @include mobile{
+            text-align: center;
+        }
+
         img{
             width: 50%;
+
+            @include mobile{
+                display: none;
+            }
         }
 
         h1{
@@ -63,4 +143,22 @@ a {
             line-height: 1.2;
         }
     }
+}
+
+.container {
+    max-width: 1100px;
+    padding: 0 30px;
+    margin: 0 auto;
+    overflow: auto;
+}
+
+// Button styling
+.btn-primary{
+    @extend %btn;
+    @include set-background(lighten($primary-color, 10%));
+}
+
+.btn-secondary{
+    @extend %btn;
+    @include set-background($secondary-color);
 }
