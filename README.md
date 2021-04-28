@@ -1,11 +1,11 @@
-# SASS Tutorial: A Simple Landing Page 
+# SASS Exercise: A Simple Landing Page 
 
 ### Tech Used
 1. HTML
 2. SASS
 3. Live SASS Compiler (VSCode Extension)
 
-### Concepts Learnt
+### Concepts Covered
 
 1. Partials
 2. Functions & Mixins
